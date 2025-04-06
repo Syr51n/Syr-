@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syr - مساعدك الذكي</title>
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #ff69b4;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    #chat {
+      width: 90%;
+      max-width: 600px;
+      background: #2a2a2a;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 2rem;
+      overflow-y: auto;
+      height: 400px;
+      box-shadow: 0 0 10px #ff69b4;
+    }
+    #input-box {
+      width: 90%;
+      max-width: 600px;
+      display: flex;
+      margin-top: 1rem;
+    }
+    input, button {
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+    }
+    input {
+      flex: 1;
+      margin-right: 0.5rem;
+    }
+    button {
+      background: #ff69b4;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>مرحباً، أنا سير - مساعدتك الذكية</h1>
+  <div id="chat">
+    <p><strong>سير:</strong> مرحباً بك! من فضلك، كم عمرك؟</p>
+  </div>
+  <div id="input-box">
+    <input type="text" id="userInput" placeholder="اكتب رسالتك هنا..." />
+    <button onclick="sendMessage()">إرسال</button>
+  </div>
+
+  <script>
+    let ageConfirmed = false;
+    const chat = document.getElementById("chat");
+
+    function sendMessage() {
+      const input = document.getElementById("userInput");
+      const text = input.value.trim();
+      if (!text) return;
+
+      appendMessage("أنت", text);
+      input.value = "";
+
+      if (!ageConfirmed) {
+        if (parseInt(text) >= 18) {
+          appendMessage("سير", "أهلاً بك! يمكنك الآن طرح أي سؤال.");
+          ageConfirmed = true;
+        } else {
+          appendMessage("سير", "عذراً، هذا الموقع مخصص لمن هم بعمر 18 سنة أو أكثر.");
+        }
+        return;
+      }
+
+      // Simulated AI response
+      setTimeout(() => {
+        appendMessage("سير", "هذا رد تلقائي من سير بناءً على سؤالك.");
+      }, 1000);
+    }
+
+    function appendMessage(sender, text) {
+      const message = document.createElement("p");
+      message.innerHTML = `<strong>${sender}:</strong> ${text}`;
+      chat.appendChild(message);
+      chat.scrollTop = chat.scrollHeight;
+    }
+  </script>
+</body>
+</html>
